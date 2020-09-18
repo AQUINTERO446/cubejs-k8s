@@ -17,7 +17,7 @@ import cubejs from "@cubejs-client/core";
 import Chart from "./Chart.js";
 
 const cubejsApi = cubejs(process.env.REACT_APP_CUBEJS_TOKEN, {
- apiUrl: process.env.REACT_APP_API_URL
+ apiUrl: 'http://localhost:4000/cubejs-api/v1'
 });
 const numberFormatter = item => numeral(item).format("0,0");
 const dateFormatter = item => moment(item).format("MMM YY");
