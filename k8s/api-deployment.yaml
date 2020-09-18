@@ -1,42 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: api-deployment
+  name: api-deployment
 spec:
-    replicas: 1
-    selector:
-        matchLabels:
-            component: server-api
-    template:
-        metadata:
-            labels:
-                component: server-api
-        spec:
-            containers:
-                - name: api
-                    image: aquintero446/api:latest
-                    ports:
-                        - containerPort: 4000
-                    env:
-                        - name: CUBEJS_DB_HOST
-                            value: postgres
-                        - name: CUBEJS_DB_NAME
-                            value: ecom
-                        - name: CUBEJS_DB_USER
-                            value: postgres
-                        - name: CUBEJS_WEB_SOCKETS
-                            value: true
-                        - name: CUBEJS_DB_TYPE
-                            value: postgres
-                        - name: REDIS_URL
-                            value: redis://redis:6379/0
-                        -name: CUBEJS_DB_PASS
-                            valueFrom:
-                                secretKeyRef:
-                                    name: cubepasswords
-                                    key: CUBEJS_DB_PASS
-                        -name: CUBEJS_API_SECRET
-                            valueFrom:
-                                secretKeyRef:
-                                    name: cubepasswords
-                                    key: CUBEJS_API_SECRET
+  replicas: 3
+  selector:
+    matchLabels:
+      component: server-api
+  template:
+    metadata:
+      labels:
+        component: server-api
+    spec:
+      containers:
+        - name: api
+          image: aquintero446/api:latest
+          ports:
+            - containerPort: 4000
+          env:
+            - name: CUBEJS_DB_HOST
+              value: postgres
+            - name: CUBEJS_DB_NAME
+              value: ecom
+            - name: CUBEJS_DB_USER
+              value: postgres
+            - name: CUBEJS_WEB_SOCKETS
+              value: 'true'
+            - name: CUBEJS_DB_TYPE
+              value: postgres
+            - name: REDIS_URL
+              value: 'redis://redis:6379/0'
+            - name: CUBEJS_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: cubepasswords
+                  key: CUBEJS_DB_PASS
+            - name: CUBEJS_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cubesecret
+                  key: CUBEJS_API_SECRET

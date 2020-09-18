@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: client
+  template:
+    metadata:
+      labels:
+        component: client
+    spec:
+      containers:
+          - name: client
+            image: aquintero446/nginx:latest
+            ports:
+              - containerPort: 3000
+            env:
+              - name: REACT_APP_CUBEJS_TOKEN
+                value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDAyMTIwNDYsImV4cCI6MTYwMjgwNDA0Nn0.dLSjg7wECprPpT0DkC_TlhGEi73V8JXGYTtYgjdhBvk
+
